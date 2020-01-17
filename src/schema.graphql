@@ -1,0 +1,50 @@
+    type Query{
+
+
+      getEntradas(mail: String,token:ID!):[Entradas]
+      getAutor(mail: String,token:ID!,mail_autor:String!):[Entradas]
+      getEntrada(mail: String,token:ID!,id:ID!):Entradas
+
+    }
+
+    type Mutation{
+
+      
+      addUser(mail:String!,password:String!,mode:Int!):Users!
+      addEntrada(mail:String!,token:ID!,titulo:String!,descripcion:String!):Entradas!
+      removeEntrada(mail:String!,token:ID!,id:ID!):String
+      removeUser(mail:String!,token:ID!):String
+
+      login(mail:String!,password:String!):Users
+      logout(mail:String!,token:ID!):Users
+      
+      
+    }
+  
+    type Users{
+
+      _id: ID!
+      mail: String!
+      password: String!
+      token : ID!
+      mode: Int!
+
+
+      entradas:Entradas
+    }
+
+    type Entradas{
+
+      _id: ID!
+      idAutor : ID!
+      titulo: String!
+      descripcion: String!
+      autor: Users
+
+    }
+
+    type Subscription{
+
+      tellUser(mail:String!,token:ID!,mail_autor:String!):Entradas
+
+    }
